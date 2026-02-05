@@ -395,7 +395,7 @@
             <textarea id="diet" name="diet" placeholder="Vegetariano/a, alergias, etc. (si no, deja en blanco)"></textarea>
           </div>
 
-          <button class="btn primary" type="submit">Enviar RSVP</button>
+          <button class="btn primary" type="submit" id="submitBtn">Enviar RSVP</button>
           <div class="success" id="successMsg">¡Perfecto! RSVP recibido. ❤️</div>
         </form>
 
@@ -470,7 +470,7 @@
         <div class="box">
           <div class="label">Cómo llegar</div>
           <div class="value" style="font-size:14px; font-weight:800; line-height:1.4">
-            Mejor en taxi/Uber/metro.<br/>
+            Mejor en taxi/VTC/metro.<br/>
             <span style="font-size:13px; font-weight:700; color:rgba(20,20,20,.75)">Metro: Aravaca (L10)</span><br/>
             <span style="font-size:13px; font-weight:650; color:rgba(20,20,20,.70);">Así disfrutas sin límites. 🥂</span>
           </div>
@@ -493,7 +493,7 @@
         </div>
         <div class="box">
           <div class="label">Nota</div>
-          <div class="value" style="font-size:14px">No “uniforme de boda”. Sí estilo. 🖤</div>
+          <div class="value" style="font-size:14px">No "uniforme de boda". Sí estilo. 🖤</div>
         </div>
       </div>
     </section>
@@ -527,12 +527,12 @@
 
       <details>
         <summary>¿Niños?</summary>
-        <p class="muted">Pon aquí vuestra decisión (por ejemplo: “boda solo adultos” / “niños bienvenidos”).</p>
+        <p class="muted">Solo adultos esta vez. Será una noche larga. 🌙</p>
       </details>
 
       <details>
         <summary>¿Transporte / taxis?</summary>
-        <p class="muted">Añadiremos recomendaciones (Uber/taxi, puntos de recogida, etc.) cuando cerremos logística.</p>
+        <p class="muted">Taxi o VTC recomendados. Sin complicaciones a la ida, sin remordimientos a la vuelta. 🚕</p>
       </details>
 
       <details>
@@ -543,7 +543,7 @@
 
     <footer>
       Patricia & Kiko · <span style="color:var(--gold); font-weight:950">Wedding Summer Celebration 2026</span><br/>
-      <span class="muted">This is not a traditional wedding. It’s a celebration.</span>
+      <span class="muted">This is not a traditional wedding. It's a celebration.</span>
     </footer>
   </div>
 
@@ -552,9 +552,17 @@
     // Para producción: conecta este submit a Google Sheets / Formspree / Netlify Forms.
     const form = document.getElementById('rsvpForm');
     const success = document.getElementById('successMsg');
+    const submitBtn = document.getElementById('submitBtn');
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      
+      // Cambiar botón a estado de carga
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Apuntándote... ⏳';
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = '0.7';
+      submitBtn.style.cursor = 'wait';
       
       // Recoger los datos del formulario
       const formData = {
@@ -577,6 +585,12 @@
           body: JSON.stringify(formData)
         });
         
+        // Restaurar botón
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = '1';
+        submitBtn.style.cursor = 'pointer';
+        
         // Mostrar mensaje de éxito
         success.style.display = 'block';
         form.reset();
@@ -584,6 +598,12 @@
         // Ocultar mensaje después de 3 segundos
         setTimeout(()=>{ success.style.display = 'none'; }, 3000);
       } catch (error) {
+        // Restaurar botón en caso de error
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+        submitBtn.style.opacity = '1';
+        submitBtn.style.cursor = 'pointer';
+        
         alert('Hubo un error al enviar el RSVP. Por favor, inténtalo de nuevo.');
         console.error('Error:', error);
       }
