@@ -1,0 +1,610 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Patricia & Kiko — Wedding Summer Celebration 2026</title>
+  <meta name="description" content="Patricia & Kiko — Wedding Summer Celebration 2026 · 10 Julio 2026 · Finca La Gaivota, Madrid" />
+  <style>
+    :root{
+      --bg: #f6f1e7;          /* crema */
+      --card: #fbf7f0;        /* crema claro */
+      --ink: #141414;         /* negro suave */
+      --muted: #5c5c5c;
+      --gold: #b48a2a;        /* dorado suave */
+      --line: rgba(20,20,20,.14);
+      --shadow: 0 20px 55px rgba(20,20,20,.12);
+      --radius: 20px;
+      --radius2: 28px;
+    }
+
+    *{ box-sizing: border-box; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+      color: var(--ink);
+      background:
+        radial-gradient(1200px 700px at 15% -10%, rgba(180,138,42,.10), transparent 60%),
+        radial-gradient(900px 500px at 90% 5%, rgba(20,20,20,.08), transparent 55%),
+        linear-gradient(180deg, var(--bg), #efe7db 70%, #efe1cf);
+      min-height: 100vh;
+    }
+
+    a{ color: inherit; text-decoration: none; }
+    .wrap{ max-width: 1050px; margin: 0 auto; padding: 28px 18px 64px; }
+
+    /* Top mini-nav */
+    .topbar{
+      display:flex; gap:10px; align-items:center; justify-content:space-between;
+      position: sticky; top: 0; z-index: 20;
+      padding: 12px 0;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(180deg, rgba(246,241,231,.9), rgba(246,241,231,.55));
+      border-bottom: 1px solid rgba(20,20,20,.06);
+    }
+    .brand{
+      display:flex; gap:10px; align-items:baseline;
+      letter-spacing: .04em;
+    }
+    .brand b{ font-weight: 800; }
+    .pill{
+      display:inline-flex; align-items:center; gap:10px;
+      padding: 10px 12px;
+      border: 1px solid rgba(20,20,20,.12);
+      border-radius: 999px;
+      background: rgba(251,247,240,.75);
+    }
+    .pill small{ color: var(--muted); font-weight: 600; }
+
+    .nav{
+      display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end;
+    }
+    .nav a{
+      padding: 10px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(20,20,20,.10);
+      background: rgba(251,247,240,.55);
+      font-weight: 700;
+      color: rgba(20,20,20,.88);
+      transition: transform .12s ease, background .12s ease;
+    }
+    .nav a:hover{ transform: translateY(-1px); background: rgba(251,247,240,.9); }
+
+    /* Hero / Ticket */
+    .hero{
+      margin-top: 18px;
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+    @media (max-width: 900px){
+      .hero{ grid-template-columns: 1fr; }
+      .nav{ display:none; } /* limpio en móvil */
+    }
+
+    .ticket{
+      position: relative;
+      background: linear-gradient(180deg, rgba(251,247,240,.95), rgba(251,247,240,.75));
+      border: 1px solid rgba(20,20,20,.14);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      padding: 22px 22px 18px;
+    }
+    .ticket:before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        radial-gradient(900px 260px at 20% 0%, rgba(180,138,42,.10), transparent 70%),
+        radial-gradient(700px 260px at 80% 100%, rgba(20,20,20,.06), transparent 70%);
+      pointer-events:none;
+    }
+    .ticket .row{
+      position:relative;
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+    }
+    .kicker{
+      font-weight: 900;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      font-size: 12px;
+      color: rgba(20,20,20,.72);
+    }
+    h1{
+      margin: 10px 0 8px;
+      font-size: 44px;
+      line-height: 1.04;
+      letter-spacing: -.02em;
+    }
+    @media (max-width: 520px){ h1{ font-size: 34px; } }
+
+    .sub{
+      font-size: 16px;
+      color: rgba(20,20,20,.80);
+      font-weight: 650;
+    }
+
+    .goldline{
+      margin: 16px 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(180,138,42,.55), transparent);
+    }
+
+    .meta{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 8px;
+      position:relative;
+    }
+    @media (max-width: 520px){ .meta{ grid-template-columns: 1fr; } }
+    .box{
+      border: 1px solid rgba(20,20,20,.12);
+      background: rgba(246,241,231,.55);
+      border-radius: 14px;
+      padding: 12px;
+    }
+    .box .label{
+      font-size: 11px;
+      letter-spacing: .14em;
+      font-weight: 900;
+      text-transform: uppercase;
+      color: rgba(20,20,20,.66);
+    }
+    .box .value{
+      margin-top: 6px;
+      font-size: 15px;
+      font-weight: 800;
+    }
+    .stage{
+      margin-top: 12px;
+      font-weight: 900;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      font-size: 13px;
+      color: rgba(20,20,20,.78);
+    }
+    .ctaRow{
+      margin-top: 16px;
+      display:flex; gap:10px; flex-wrap:wrap;
+    }
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(20,20,20,.14);
+      background: rgba(251,247,240,.92);
+      font-weight: 900;
+      letter-spacing: .02em;
+      cursor:pointer;
+      transition: transform .12s ease, background .12s ease;
+      user-select:none;
+    }
+    .btn:hover{ transform: translateY(-1px); background: rgba(251,247,240,1); }
+    .btn.primary{
+      background: linear-gradient(180deg, rgba(180,138,42,.22), rgba(180,138,42,.12));
+      border-color: rgba(180,138,42,.35);
+    }
+    .fineprint{
+      margin-top: 14px;
+      color: rgba(20,20,20,.60);
+      font-weight: 650;
+      font-size: 13px;
+    }
+    .fineprint em{
+      font-style: normal;
+      color: rgba(180,138,42,.95);
+      font-weight: 900;
+    }
+
+    /* Right column: RSVP card */
+    .card{
+      background: rgba(251,247,240,.78);
+      border: 1px solid rgba(20,20,20,.14);
+      border-radius: var(--radius2);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+    .card h2{
+      margin: 0 0 6px;
+      font-size: 20px;
+      letter-spacing: -.01em;
+    }
+    .card p{ margin: 0 0 14px; color: rgba(20,20,20,.70); font-weight: 650; }
+
+    form{ display:grid; gap: 10px; }
+    label{ font-weight: 850; font-size: 13px; letter-spacing: .02em; }
+    input, select, textarea{
+      width: 100%;
+      padding: 12px 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(20,20,20,.16);
+      background: rgba(246,241,231,.55);
+      outline: none;
+      font-size: 15px;
+    }
+    textarea{ min-height: 90px; resize: vertical; }
+    .row2{ display:grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    @media (max-width: 520px){ .row2{ grid-template-columns: 1fr; } }
+    .success{
+      display:none;
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 14px;
+      background: rgba(180,138,42,.12);
+      border: 1px solid rgba(180,138,42,.25);
+      font-weight: 850;
+    }
+
+    /* Sections */
+    .section{
+      margin-top: 18px;
+      background: rgba(251,247,240,.65);
+      border: 1px solid rgba(20,20,20,.12);
+      border-radius: var(--radius2);
+      padding: 18px;
+    }
+    .section h3{
+      margin: 0 0 10px;
+      font-size: 18px;
+      letter-spacing: -.01em;
+    }
+    .grid3{
+      display:grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+    @media (max-width: 900px){ .grid3{ grid-template-columns: 1fr; } }
+
+    .timeline{
+      display:grid; gap: 10px;
+    }
+    .titem{
+      display:flex; align-items:flex-start; gap: 12px;
+      padding: 12px;
+      border-radius: 16px;
+      background: rgba(246,241,231,.55);
+      border: 1px solid rgba(20,20,20,.10);
+    }
+    .time{
+      min-width: 64px;
+      font-weight: 950;
+      letter-spacing: .02em;
+    }
+    .desc b{ font-weight: 950; }
+    .muted{ color: rgba(20,20,20,.62); font-weight: 650; }
+
+    /* Accordion */
+    details{
+      border: 1px solid rgba(20,20,20,.12);
+      background: rgba(246,241,231,.55);
+      border-radius: 16px;
+      padding: 12px 12px;
+    }
+    details + details{ margin-top: 10px; }
+    summary{
+      cursor:pointer;
+      font-weight: 900;
+      list-style: none;
+    }
+    summary::-webkit-details-marker{ display:none; }
+    details[open]{ background: rgba(246,241,231,.70); }
+
+    /* Footer */
+    footer{
+      margin-top: 18px;
+      text-align:center;
+      color: rgba(20,20,20,.62);
+      font-weight: 700;
+      padding: 14px 0 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="brand pill">
+        <b>Patricia & Kiko</b>
+        <small>Wedding Summer Celebration 2026</small>
+      </div>
+      <div class="nav">
+        <a href="#rsvp">RSVP</a>
+        <a href="#plan">Horarios</a>
+        <a href="#location">Cómo llegar</a>
+        <a href="#dresscode">Dress code</a>
+        <a href="#gift">Regalo</a>
+        <a href="#faq">FAQ</a>
+      </div>
+    </div>
+
+    <section class="hero" aria-label="Hero">
+      <div class="ticket">
+        <div class="row">
+          <div class="kicker">Entrada · VIP / 2026</div>
+          <div class="kicker" style="color:var(--gold)">Madrid Cool</div>
+        </div>
+
+        <h1>Wedding Summer Celebration<br/>2026</h1>
+        <div class="sub">
+          <b>Patricia Cerezo</b> & <b>Kiko Gámez</b><br/>
+          <span class="muted">Finca La Gaivota · Madrid · 10 Julio 2026</span>
+        </div>
+
+        <div class="goldline"></div>
+
+        <div class="stage">Ceremony · Cocktail · Dinner · Party</div>
+
+        <div class="meta" style="margin-top:14px">
+          <div class="box">
+            <div class="label">Fecha</div>
+            <div class="value">Viernes, 10 Julio 2026</div>
+          </div>
+          <div class="box">
+            <div class="label">Lugar</div>
+            <div class="value">Finca La Gaivota, Madrid</div>
+          </div>
+          <div class="box">
+            <div class="label">Llegada</div>
+            <div class="value">19:45</div>
+          </div>
+          <div class="box">
+            <div class="label">Dress Code</div>
+            <div class="value">Corbata (ellos) · Fiesta (ellas)</div>
+          </div>
+        </div>
+
+        <div class="ctaRow">
+          <a class="btn primary" href="#rsvp">Confirmar asistencia</a>
+          <a class="btn" href="#location">Cómo llegar</a>
+          <a class="btn" href="#plan">Ver horarios</a>
+        </div>
+
+        <div class="fineprint">
+          <em>No</em> es una boda tradicional. Es una celebración.
+          <br/>Ceremonia breve. Cóctel largo. Cena seria. Y después… <b>fiessstaaa</b>.
+        </div>
+      </div>
+
+      <aside class="card" id="rsvp">
+        <h2>RSVP</h2>
+        <p>Confirma aquí para que podamos organizarlo bien. Tardarás 20 segundos.</p>
+
+        <!--
+          OPCIÓN A (rápida): reemplaza todo el <form> por un embed de Google Forms o Typeform.
+          OPCIÓN B (pro): conecta a Google Sheets con Apps Script / Netlify Forms / Formspree.
+        -->
+        <form id="rsvpForm">
+          <div>
+            <label for="name">Nombre y apellidos</label>
+            <input id="name" name="name" placeholder="Tu nombre" required />
+          </div>
+
+          <div>
+            <label for="attend">¿Vienes?</label>
+            <select id="attend" name="attend" required>
+              <option value="" selected disabled>Selecciona</option>
+              <option value="sí">Sí, allí estaré</option>
+              <option value="no">No podré ir</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="diet">Restricciones alimentarias</label>
+            <textarea id="diet" name="diet" placeholder="Vegetariano/a, alergias, etc. (si no, deja en blanco)"></textarea>
+          </div>
+
+          <button class="btn primary" type="submit">Enviar RSVP</button>
+          <div class="success" id="successMsg">¡Perfecto! RSVP recibido. ❤️</div>
+        </form>
+
+        <div class="section" style="margin-top:14px">
+          <h3 style="margin-bottom:8px">Acceso rápido</h3>
+          <div class="grid3">
+            <a class="btn" href="#dresscode">Dress code</a>
+            <a class="btn" href="#gift">Regalo</a>
+            <a class="btn" href="#faq">FAQ</a>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section" id="plan">
+      <h3>🗓️ The Plan</h3>
+      <div class="timeline">
+        <div class="titem">
+          <div class="time">19:45</div>
+          <div class="desc"><b>Llegada</b></div>
+        </div>
+        <div class="titem">
+          <div class="time">20:00</div>
+          <div class="desc"><b>Ceremonia</b></div>
+        </div>
+        <div class="titem">
+          <div class="time">20:45</div>
+          <div class="desc"><b>Cóctel</b></div>
+        </div>
+        <div class="titem">
+          <div class="time">22:30</div>
+          <div class="desc"><b>Cena</b></div>
+        </div>
+        <div class="titem">
+          <div class="time">Después</div>
+          <div class="desc"><b>Fiessstaaa</b> <span class="muted">(sin horario)</span></div>
+        </div>
+      </div>
+      <p class="muted" style="margin:12px 2px 0;">*Horarios aproximados. Lo importante: venir con ganas.*</p>
+    </section>
+
+    <section class="section" id="location">
+      <h3>📍 Location</h3>
+      <div class="grid3">
+        <div class="box">
+          <div class="label">Venue</div>
+          <div class="value">Finca La Gaivota</div>
+          <div class="muted" style="margin-top:6px">Aravaca, Madrid</div>
+          <!-- Mapa embebido -->
+          <div style="margin-top:12px; border-radius:10px; overflow:hidden; border:1px solid rgba(20,20,20,.10);">
+            <iframe 
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3035.588475657553!2d-3.7846422174846404!3d40.46224441204996!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd41871d1995e29f%3A0x22f9169affe5fc13!2sFinca%20La%20Gaivota!5e0!3m2!1ses!2ses!4v1770294659630!5m2!1ses!2ses"
+              width="100%" 
+              height="160" 
+              style="border:0; display:block; filter: grayscale(0.2) contrast(0.85) brightness(1.1) sepia(0.15);" 
+              allowfullscreen="" 
+              loading="lazy" 
+              referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="label">Maps</div>
+          <div class="value" style="font-size:14px; font-weight:800; line-height:1.25">
+            <a class="btn" style="margin-top:10px; width:100%" href="https://maps.google.com/?q=Finca+La+Gaivota+Calle+Ardales+Aravaca+Madrid" target="_blank" rel="noreferrer">Abrir en Google Maps</a>
+            <a class="btn" style="margin-top:8px; width:100%" href="https://maps.apple.com/?q=Finca%20La%20Gaivota%20Calle%20Ardales%20Aravaca%20Madrid" target="_blank" rel="noreferrer">Abrir en Apple Maps</a>
+            <a class="btn" style="margin-top:8px; width:100%" href="https://waze.com/ul?q=Finca%20La%20Gaivota%20Aravaca%20Madrid" target="_blank" rel="noreferrer">Abrir en Waze</a>
+          </div>
+        </div>
+
+        <div class="box">
+          <div class="label">Cómo llegar</div>
+          <div class="value" style="font-size:14px; font-weight:800; line-height:1.4">
+            Mejor en taxi/Uber/metro.<br/>
+            <span style="font-size:13px; font-weight:700; color:rgba(20,20,20,.75)">Metro: Aravaca (L10)</span><br/>
+            <span style="font-size:13px; font-weight:650; color:rgba(20,20,20,.70);">Así disfrutas sin límites. 🥂</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="dresscode">
+      <h3>👗 Dress code</h3>
+      <div class="grid3">
+        <div class="box">
+          <div class="label">Ellos</div>
+          <div class="value">Corbata</div>
+          <div class="muted" style="margin-top:6px">Elegante y cómodo.</div>
+        </div>
+        <div class="box">
+          <div class="label">Ellas</div>
+          <div class="value">Fiesta</div>
+          <div class="muted" style="margin-top:6px">Con personalidad.</div>
+        </div>
+        <div class="box">
+          <div class="label">Nota</div>
+          <div class="value" style="font-size:14px">No “uniforme de boda”. Sí estilo. 🖤</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="gift">
+      <h3>🎁 Regalo</h3>
+      <div class="grid3">
+        <div class="box" style="grid-column: span 2">
+          <div class="label">Mensaje</div>
+          <div class="value" style="font-size:14px; font-weight:800; line-height:1.35">
+            Lo único imprescindible es que vengas.<br/>
+            Si además te apetece contribuir a nuestra nueva etapa, aquí tienes los datos:
+          </div>
+        </div>
+        <div class="box">
+          <div class="label">IBAN</div>
+          <div class="value" id="ibanText" style="font-size:14px">ES98 0081 5395 3500 0195 1897</div>
+          <button class="btn" style="margin-top:10px; width:100%" id="copyIbanBtn" type="button">Copiar IBAN</button>
+          <div class="muted" id="copyMsg" style="margin-top:8px; display:none; font-weight:800;">Copiado ✅</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="faq">
+      <h3>❓ FAQ</h3>
+
+      <details>
+        <summary>¿A qué hora termina?</summary>
+        <p class="muted">La pregunta correcta es: ¿a qué hora empieza la fiessstaaa? 🪩</p>
+      </details>
+
+      <details>
+        <summary>¿Niños?</summary>
+        <p class="muted">Pon aquí vuestra decisión (por ejemplo: “boda solo adultos” / “niños bienvenidos”).</p>
+      </details>
+
+      <details>
+        <summary>¿Transporte / taxis?</summary>
+        <p class="muted">Añadiremos recomendaciones (Uber/taxi, puntos de recogida, etc.) cuando cerremos logística.</p>
+      </details>
+
+      <details>
+        <summary>Contacto</summary>
+        <p class="muted">Deja un WhatsApp o email de contacto (vosotros o alguien de confianza).</p>
+      </details>
+    </section>
+
+    <footer>
+      Patricia & Kiko · <span style="color:var(--gold); font-weight:950">Wedding Summer Celebration 2026</span><br/>
+      <span class="muted">This is not a traditional wedding. It’s a celebration.</span>
+    </footer>
+  </div>
+
+  <script>
+    // RSVP demo: muestra "recibido" sin enviar a ningún sitio.
+    // Para producción: conecta este submit a Google Sheets / Formspree / Netlify Forms.
+    const form = document.getElementById('rsvpForm');
+    const success = document.getElementById('successMsg');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      // Recoger los datos del formulario
+      const formData = {
+        nombre: document.getElementById('name').value,
+        asistencia: document.getElementById('attend').value,
+        restricciones: document.getElementById('diet').value,
+        fecha: new Date().toLocaleString('es-ES')
+      };
+      
+      // URL de tu Google Apps Script Web App
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbzPFvtlTxw5-JuRUSUqLMPVRX-lYdqJFTqhZtrTO1I4X96w2u2WcUDCn-moQCrIkl9TfQ/exec';
+      
+      try {
+        const response = await fetch(scriptURL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(formData)
+        });
+        
+        // Mostrar mensaje de éxito
+        success.style.display = 'block';
+        form.reset();
+        
+        // Ocultar mensaje después de 3 segundos
+        setTimeout(()=>{ success.style.display = 'none'; }, 3000);
+      } catch (error) {
+        alert('Hubo un error al enviar el RSVP. Por favor, inténtalo de nuevo.');
+        console.error('Error:', error);
+      }
+    });
+
+    // Copy IBAN
+    const copyBtn = document.getElementById('copyIbanBtn');
+    const ibanText = document.getElementById('ibanText');
+    const copyMsg = document.getElementById('copyMsg');
+
+    copyBtn.addEventListener('click', async () => {
+      try{
+        // Copiar el IBAN sin espacios
+        const ibanSinEspacios = ibanText.textContent.trim().replace(/\s/g, '');
+        await navigator.clipboard.writeText(ibanSinEspacios);
+        copyMsg.style.display = 'block';
+        setTimeout(()=> copyMsg.style.display = 'none', 1800);
+      }catch(err){
+        alert('No se pudo copiar. Selecciona el IBAN manualmente.');
+      }
+    });
+  </script>
+</body>
+</html>
