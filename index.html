@@ -316,6 +316,11 @@
       letter-spacing:.02em;
     }
     .chat-toggle:hover{ transform:scale(1.05); }
+    @keyframes pulse{
+      0%,100%{ box-shadow:0 8px 24px rgba(20,20,20,.15), 0 0 0 0 rgba(180,138,42,.3); }
+      50%{ box-shadow:0 8px 24px rgba(20,20,20,.15), 0 0 0 10px rgba(180,138,42,0); }
+    }
+    .chat-toggle{ animation:pulse 2.5s ease-in-out infinite; }
     .chat-panel{
       position:fixed; bottom:90px; right:24px;
       width:340px; max-height:min(480px, calc(100dvh - 100px));
