@@ -340,7 +340,6 @@
     .chat-messages{
       flex:1; overflow-y:auto; padding:14px;
       display:flex; flex-direction:column; gap:10px;
-      min-height:120px;
     }
     .chat-msg{
       padding:10px 12px; border-radius:14px;
@@ -360,21 +359,22 @@
     .chat-input-row{
       display:flex; gap:8px; padding:12px;
       border-top:1px solid var(--line);
+      flex-shrink:0;
     }
     .chat-input-row input{
-      flex:1; padding:10px 12px; border-radius:12px;
+      flex:1; min-width:0; padding:10px 12px; border-radius:12px;
       border:1px solid rgba(20,20,20,.14);
-      background:rgba(246,241,231,.5); font-size:14px; outline:none;
+      background:rgba(246,241,231,.5); font-size:16px; outline:none;
     }
-    .chat-input-row .btn{ padding:10px 14px; font-size:13px; }
+    .chat-input-row .btn{ padding:10px 14px; font-size:13px; flex-shrink:0; }
     @media(max-width:520px){
       .chat-toggle{ bottom:16px; right:16px; padding:10px 14px; font-size:13px; }
       .chat-panel{
-        right:0; left:0; bottom:0; top:0;
+        position:fixed; top:0; left:0; right:0;
         width:100%; max-height:none;
-        border-radius:0;
+        height:100dvh; height:-webkit-fill-available;
+        border-radius:0; bottom:auto;
       }
-      .chat-messages{ min-height:0; }
     }
   </style>
 </head>
@@ -626,10 +626,10 @@
   </div>
 
   <!-- Chat Widget -->
-  <button id="chatToggle" class="chat-toggle" aria-label="Abrir chat">💬 IA de la Boda</button>
+  <button id="chatToggle" class="chat-toggle" aria-label="Abrir chat">✨ PK IA</button>
   <div id="chatPanel" class="chat-panel" style="display:none">
     <div class="chat-header">
-      <b>IA de la Boda</b>
+      <b>✨ PK IA</b>
       <button id="chatClose" class="chat-close">&times;</button>
     </div>
     <div id="chatMessages" class="chat-messages"></div>
@@ -752,7 +752,7 @@
       chatPanel.style.display = open ? 'flex' : 'none';
       if (open && !chatOpened) {
         chatOpened = true;
-        addChatMsg('bot', 'Hola! Soy la IA de la Boda de Patri y Kiko. Preguntame lo que quieras sobre el evento!');
+        addChatMsg('bot', 'Hola! Soy PK IA, la asistente virtual de Patri y Kiko. Preguntame lo que quieras sobre la boda!');
       }
       if (open) chatInput.focus();
     });
@@ -762,18 +762,16 @@
     });
 
     // Ajustar panel cuando aparece el teclado en movil (iOS/Android)
+    function adjustChat() {
+      if (chatPanel.style.display === 'none') return;
+      if (window.visualViewport) {
+        chatPanel.style.height = window.visualViewport.height + 'px';
+        chatPanel.style.top = window.visualViewport.offsetTop + 'px';
+      }
+    }
     if (window.visualViewport) {
-      window.visualViewport.addEventListener('resize', () => {
-        if (chatPanel.style.display !== 'none') {
-          chatPanel.style.height = window.visualViewport.height + 'px';
-          chatPanel.style.top = window.visualViewport.offsetTop + 'px';
-        }
-      });
-      window.visualViewport.addEventListener('scroll', () => {
-        if (chatPanel.style.display !== 'none') {
-          chatPanel.style.top = window.visualViewport.offsetTop + 'px';
-        }
-      });
+      window.visualViewport.addEventListener('resize', adjustChat);
+      window.visualViewport.addEventListener('scroll', adjustChat);
     }
 
     async function sendChatMsg() {
