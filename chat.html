@@ -127,12 +127,31 @@
         typing.remove();
 
         var reply = data.reply || 'No he podido responder. Intentalo de nuevo.';
+        var rsvpMatch = reply.match(/\[RSVP\|([^|]+)\|([^|]+)\|([^\]]*)\]/);
+        if (rsvpMatch) {
+          reply = reply.replace(/\s*\[RSVP\|[^\]]*\]/, '');
+          submitRSVP(rsvpMatch[1], rsvpMatch[2], rsvpMatch[3]);
+        }
         chatHistory.push({ role: 'assistant', content: reply });
         addMsg('bot', reply);
       } catch(err) {
         typing.remove();
         addMsg('bot', 'Ups, algo fallo. Intentalo de nuevo.');
       }
+    }
+
+    var RSVP_URL = 'https://script.google.com/macros/s/AKfycbzPFvtlTxw5-JuRUSUqLMPVRX-lYdqJFTqhZtrTO1I4X96w2u2WcUDCn-moQCrIkl9TfQ/exec';
+    function submitRSVP(nombre, asistencia, restricciones) {
+      fetch(RSVP_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        body: JSON.stringify({
+          nombre: nombre.trim(),
+          asistencia: asistencia.trim(),
+          restricciones: (restricciones || '').trim(),
+          fecha: new Date().toLocaleString('es-ES')
+        })
+      });
     }
 
     chatSend.addEventListener('click', sendMsg);
