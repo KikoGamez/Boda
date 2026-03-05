@@ -514,8 +514,9 @@
         </div>
         <div class="box">
           <div class="label">IBAN</div>
-          <div class="value" id="ibanText" style="font-size:14px">ES98 0081 5395 3500 0195 1897</div>
-          <button class="btn" style="margin-top:10px; width:100%" id="copyIbanBtn" type="button">Copiar IBAN</button>
+          <div class="value" id="ibanText" style="font-size:14px; min-height:1.4em;"></div>
+          <button class="btn" style="margin-top:10px; width:100%" id="showIbanBtn" type="button">Mostrar IBAN</button>
+          <button class="btn" style="margin-top:8px; width:100%; display:none" id="copyIbanBtn" type="button">Copiar IBAN</button>
           <div class="muted" id="copyMsg" style="margin-top:8px; display:none; font-weight:800;">Copiado ✅</div>
         </div>
       </div>
@@ -613,19 +614,30 @@
       }
     });
 
-    // Copy IBAN
-    const copyBtn = document.getElementById('copyIbanBtn');
+    // IBAN — ofuscado en base64 para que no aparezca en el HTML ni sea indexable por bots
+    const _ib = 'RVM5ODAwODE1Mzk1MzUwMDAxOTUxODk3';
     const ibanText = document.getElementById('ibanText');
+    const showBtn = document.getElementById('showIbanBtn');
+    const copyBtn = document.getElementById('copyIbanBtn');
     const copyMsg = document.getElementById('copyMsg');
 
+    function decodeIban() {
+      const raw = atob(_ib);
+      return raw.replace(/(.{4})/g, '$1 ').trim();
+    }
+
+    showBtn.addEventListener('click', () => {
+      ibanText.textContent = decodeIban();
+      showBtn.style.display = 'none';
+      copyBtn.style.display = '';
+    });
+
     copyBtn.addEventListener('click', async () => {
-      try{
-        // Copiar el IBAN sin espacios
-        const ibanSinEspacios = ibanText.textContent.trim().replace(/\s/g, '');
-        await navigator.clipboard.writeText(ibanSinEspacios);
+      try {
+        await navigator.clipboard.writeText(atob(_ib));
         copyMsg.style.display = 'block';
-        setTimeout(()=> copyMsg.style.display = 'none', 1800);
-      }catch(err){
+        setTimeout(() => copyMsg.style.display = 'none', 1800);
+      } catch(err) {
         alert('No se pudo copiar. Selecciona el IBAN manualmente.');
       }
     });
