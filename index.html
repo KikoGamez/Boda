@@ -322,6 +322,50 @@
       padding: 14px 0 0;
     }
 
+    /* Modal invitación */
+    .modal-backdrop{
+      position:fixed; inset:0;
+      background: rgba(20,20,20,.78);
+      display:none;
+      align-items:center; justify-content:center;
+      padding: 20px;
+      z-index: 200;
+      backdrop-filter: blur(4px);
+    }
+    .modal-backdrop.open{ display:flex; }
+    .modal-dialog{
+      position: relative;
+      max-width: min(1200px, 96vw);
+      max-height: 92vh;
+      display:flex; align-items:center; justify-content:center;
+      animation: modalIn .18s ease-out;
+    }
+    .modal-dialog img{
+      max-width: 100%;
+      max-height: 92vh;
+      height: auto;
+      width: auto;
+      border-radius: 12px;
+      box-shadow: 0 20px 60px rgba(0,0,0,.5);
+      display:block;
+    }
+    .modal-close{
+      position:absolute; top:-14px; right:-14px;
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 1px solid rgba(20,20,20,.2);
+      background: var(--card);
+      font-size: 24px; line-height: 1; font-weight: 700;
+      cursor:pointer;
+      box-shadow: 0 6px 20px rgba(0,0,0,.3);
+      display:flex; align-items:center; justify-content:center;
+      padding: 0;
+    }
+    .modal-close:hover{ background: #fff; }
+    @keyframes modalIn{
+      from { opacity: 0; transform: scale(.96); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+
     /* Chat Widget */
     .chat-toggle{
       position:fixed; bottom:24px; right:24px;
@@ -515,6 +559,55 @@
         </div>
       </aside>
     </section>
+
+    <section class="section" id="invitacion" style="text-align:center">
+      <h3 style="margin-bottom:12px">💌 La invitación</h3>
+      <button class="btn primary" type="button" id="openInvitationBtn"
+         style="font-size:16px; padding:16px 24px;">
+        Ver la invitación
+      </button>
+
+      <div class="goldline" style="margin:20px auto; max-width:320px"></div>
+
+      <p style="font-weight:700; margin:0 0 6px">¿Te llegó la invitación por correo postal?</p>
+      <p class="muted" style="margin:0 0 14px; font-size:14px">Revisa tu buzón — tiene un sobre bonito esperando 💌</p>
+
+      <div id="mailAnswers" class="ctaRow" style="justify-content:center">
+        <button class="btn primary" type="button" data-mail="si">Sí, me llegó</button>
+        <button class="btn" type="button" data-mail="no">No me llegó</button>
+      </div>
+
+      <div id="mailNoBlock" style="display:none; max-width:420px; margin:14px auto 0; text-align:left">
+        <p style="font-weight:700; margin:0 0 10px; text-align:center">
+          Danos tu nombre y dirección de nuevo, volveremos a intentarlo 💌
+        </p>
+        <label for="mailName" style="display:block; margin-bottom:6px">Nombre y apellidos</label>
+        <input id="mailName" type="text" placeholder="Tu nombre" />
+        <label for="mailAddress" style="display:block; margin:10px 0 6px">Dirección postal</label>
+        <textarea id="mailAddress" placeholder="Calle, número, piso, código postal, ciudad"></textarea>
+        <button class="btn primary" type="button" id="mailSendBtn" style="margin-top:10px; width:100%">
+          Enviar a Patricia & Kiko
+        </button>
+      </div>
+
+      <div id="mailRsvpBlock" style="display:none; max-width:420px; margin:14px auto 0">
+        <p style="font-weight:700; margin:0 0 6px">Por cierto, ¿vendrás a la boda?</p>
+        <div class="ctaRow" style="justify-content:center; margin-top:10px">
+          <button class="btn primary" type="button" data-mail-rsvp="si">Sí, no me lo perdería por nada</button>
+          <button class="btn" type="button" data-mail-rsvp="no">No podrá ser</button>
+        </div>
+      </div>
+
+      <div id="mailThanks" class="success" style="max-width:420px; margin:12px auto 0"></div>
+    </section>
+
+    <!-- Modal invitación -->
+    <div id="invitationModal" class="modal-backdrop" aria-hidden="true">
+      <div class="modal-dialog" role="dialog" aria-modal="true" aria-label="Invitación de boda">
+        <button class="modal-close" type="button" id="closeInvitationBtn" aria-label="Cerrar">×</button>
+        <img src="invitacion.jpg" alt="Invitación de boda Patricia & Kiko" />
+      </div>
+    </div>
 
     <section class="section" id="plan">
       <h3>🗓️ The Plan</h3>
@@ -856,6 +949,109 @@
     chatSend.addEventListener('click', sendChatMsg);
     chatInput.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') sendChatMsg();
+    });
+
+    // --- Modal invitación ---
+    const invitationModal = document.getElementById('invitationModal');
+    const openInvitationBtn = document.getElementById('openInvitationBtn');
+    const closeInvitationBtn = document.getElementById('closeInvitationBtn');
+
+    function openInvitation(){
+      invitationModal.classList.add('open');
+      invitationModal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeInvitation(){
+      invitationModal.classList.remove('open');
+      invitationModal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+    openInvitationBtn.addEventListener('click', openInvitation);
+    closeInvitationBtn.addEventListener('click', closeInvitation);
+    invitationModal.addEventListener('click', (e) => {
+      if (e.target === invitationModal) closeInvitation();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && invitationModal.classList.contains('open')) closeInvitation();
+    });
+
+    // --- Invitación: encuesta "¿Te llegó por correo?" ---
+    const mailSection = document.getElementById('invitacion');
+    const mailAnswers = document.getElementById('mailAnswers');
+    const mailNoBlock = document.getElementById('mailNoBlock');
+    const mailRsvpBlock = document.getElementById('mailRsvpBlock');
+    const mailThanks = document.getElementById('mailThanks');
+    const mailSendBtn = document.getElementById('mailSendBtn');
+    const mailName = document.getElementById('mailName');
+    const mailAddress = document.getElementById('mailAddress');
+
+    // Si ya respondió en esta sesión, ocultar la card entera.
+    if (sessionStorage.getItem('mailAnswered') === '1') {
+      mailSection.style.display = 'none';
+    }
+
+    // Datos del reenvío que se envían una vez confirme la asistencia.
+    let reenvioData = null;
+
+    mailAnswers.querySelectorAll('button[data-mail]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const answer = btn.dataset.mail;
+        if (answer === 'si') {
+          mailAnswers.style.display = 'none';
+          mailThanks.textContent = 'Esperamos que te haya gustado 💌';
+          mailThanks.style.display = 'block';
+          sessionStorage.setItem('mailAnswered', '1');
+        } else {
+          mailAnswers.style.display = 'none';
+          mailNoBlock.style.display = 'block';
+          mailName.focus();
+        }
+      });
+    });
+
+    // Paso 1 del "No": recoger nombre + dirección y pasar a la pregunta RSVP.
+    mailSendBtn.addEventListener('click', () => {
+      const name = mailName.value.trim();
+      const address = mailAddress.value.trim();
+      if (!name) { mailName.focus(); return; }
+      if (!address) { mailAddress.focus(); return; }
+      reenvioData = { nombre: name, direccion: address };
+      mailNoBlock.style.display = 'none';
+      mailRsvpBlock.style.display = 'block';
+    });
+
+    // Paso 2 del "No": confirmar asistencia y enviar todo al Apps Script.
+    mailRsvpBlock.querySelectorAll('button[data-mail-rsvp]').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const asistencia = btn.dataset.mailRsvp;
+        const buttons = mailRsvpBlock.querySelectorAll('button');
+        buttons.forEach(b => b.disabled = true);
+        btn.textContent = 'Enviando... ⏳';
+
+        const payload = {
+          type: 'reenvio',
+          nombre: reenvioData.nombre,
+          direccion: reenvioData.direccion,
+          asistencia: asistencia,
+          fecha: new Date().toLocaleString('es-ES')
+        };
+
+        try {
+          await fetch('https://script.google.com/macros/s/AKfycbzPFvtlTxw5-JuRUSUqLMPVRX-lYdqJFTqhZtrTO1I4X96w2u2WcUDCn-moQCrIkl9TfQ/exec', {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+        } catch (_) { /* no-cors no expone errores de red */ }
+
+        mailRsvpBlock.style.display = 'none';
+        mailThanks.textContent = asistencia === 'si'
+          ? '¡Perfecto! Te reenviamos la invitación y te esperamos el 10 de julio 🥂'
+          : 'Gracias por avisar, te echaremos de menos ❤️';
+        mailThanks.style.display = 'block';
+        sessionStorage.setItem('mailAnswered', '1');
+      });
     });
   </script>
 </body>
