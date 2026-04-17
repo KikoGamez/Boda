@@ -1028,13 +1028,20 @@
       if (!name) { mailName.focus(); return; }
       if (!address) { mailAddress.focus(); return; }
       reenvioData = { nombre: name, direccion: address };
-      mailNoBlock.style.display = 'none';
-      mailRsvpBlock.style.display = 'block';
-      // Ocultar el teclado del móvil para que se vea la pregunta RSVP.
+      // Cerrar teclado del móvil antes de mostrar el siguiente paso.
       if (document.activeElement && document.activeElement.blur) {
         document.activeElement.blur();
       }
-      scrollMailIntoView(mailRsvpBlock);
+      mailNoBlock.style.display = 'none';
+      mailRsvpBlock.style.display = 'block';
+      // Scroll progresivo: primero encuadrar la card entera desde arriba,
+      // luego centrar la pregunta RSVP cuando el teclado ya se ha replegado.
+      requestAnimationFrame(() => {
+        mailSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        setTimeout(() => {
+          mailRsvpBlock.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 450);
+      });
     });
 
     // Paso 2 del "No": confirmar asistencia y enviar todo al Apps Script.
