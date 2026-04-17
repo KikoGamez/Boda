@@ -579,7 +579,7 @@
 
       <div id="mailNoBlock" style="display:none; max-width:420px; margin:14px auto 0; text-align:left">
         <p style="font-weight:700; margin:0 0 10px; text-align:center">
-          Danos tu nombre y dirección de nuevo, volveremos a intentarlo 💌
+          Danos tu nombre y dirección de nuevo, volveremos a enviártela 💌
         </p>
         <label for="mailName" style="display:block; margin-bottom:6px">Nombre y apellidos</label>
         <input id="mailName" type="text" placeholder="Tu nombre" />
@@ -993,6 +993,16 @@
     // Datos del reenvío que se envían una vez confirme la asistencia.
     let reenvioData = null;
 
+    function scrollMailIntoView(el){
+      // Centra el bloque activo en el viewport tras un pequeño delay
+      // (permite que el layout reflowee antes de calcular la posición).
+      requestAnimationFrame(() => {
+        setTimeout(() => {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 60);
+      });
+    }
+
     mailAnswers.querySelectorAll('button[data-mail]').forEach(btn => {
       btn.addEventListener('click', () => {
         const answer = btn.dataset.mail;
@@ -1001,10 +1011,12 @@
           mailThanks.textContent = 'Esperamos que te haya gustado 💌';
           mailThanks.style.display = 'block';
           sessionStorage.setItem('mailAnswered', '1');
+          scrollMailIntoView(mailThanks);
         } else {
           mailAnswers.style.display = 'none';
           mailNoBlock.style.display = 'block';
-          mailName.focus();
+          scrollMailIntoView(mailNoBlock);
+          setTimeout(() => mailName.focus(), 400);
         }
       });
     });
@@ -1018,6 +1030,11 @@
       reenvioData = { nombre: name, direccion: address };
       mailNoBlock.style.display = 'none';
       mailRsvpBlock.style.display = 'block';
+      // Ocultar el teclado del móvil para que se vea la pregunta RSVP.
+      if (document.activeElement && document.activeElement.blur) {
+        document.activeElement.blur();
+      }
+      scrollMailIntoView(mailRsvpBlock);
     });
 
     // Paso 2 del "No": confirmar asistencia y enviar todo al Apps Script.
@@ -1051,6 +1068,7 @@
           : 'Gracias por avisar, te echaremos de menos ❤️';
         mailThanks.style.display = 'block';
         sessionStorage.setItem('mailAnswered', '1');
+        scrollMailIntoView(mailThanks);
       });
     });
   </script>
